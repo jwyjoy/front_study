@@ -18,29 +18,32 @@
         .controller('MainCtrl', function () {
             var vm = this;
             var count = 1;
-            vm.cookies = [];
+            vm.cookies = []; 
             vm.money = 0;
             vm.cooking_message = '追加!';
+            vm.alert_message = '';
+            vm.create_count = 1;
+
             vm.cooking = function () {
-                if (count <= 10) {
-                     if(count %5 == 0){
-                         vm.cookies.push({
-                            id: count++,
-                            rarity: true
-                         });
-                     } else {
-                        vm.cookies.push({
-                            id: count++,
-                            rarity: false
-                         });
-                     }
-                } else {
-                    vm.cooking_message = 'もう追加できませんぬ';
+                for (var i = 0; i < vm.create_count; i++) {
+                    if (vm.cookies.length < 10) {
+                        if(count %5 == 0){
+                             vm.cookies.push({
+                                 id: count++,
+                                 rarity: true
+                             });
+                        } else {
+                             vm.cookies.push({
+                                id: count++,
+                                rarity: false
+                             });
+                        }
+                    } else {
+                     vm.cooking_message = 'もう追加できませんぬ';
+                    }
                 }
-                console.log(vm.cookies);
             };
             vm.sellcooking = function (is_rarity, object_len) {
-                count--;
                 if(is_rarity) {
                     vm.money+=500;
                 } else {
@@ -48,15 +51,26 @@
                 }
                 vm.cookies.splice(object_len,1);
             };
+            vm.item_double = function () {
+                if(vm.money < 500) {
+                    vm.alert_message = '金が...ないんだ';      
+                } else {
+                    vm.money -= 500;
+                    vm.create_count++;
+                }
+
+            };
         });
    </script>
     <body>
         <div class="cookie-factory" ng-controller="MainCtrl as main">
+            <div ng-bind="main.alert_message"></div>
             <button ng-show="main.cookies.length < 10" ng-click="main.cooking()" ng-bind="main.cooking_message" > </button>
             <div ng-bind="main.money"></div>
             <div ng-show="main.cookies.length >= 10">
                 もう追加できないので
             </div>
+            <button ng-click="main.item_double()" ng-disabled="main.create_count > 1"> 500item </button>
           <div class="cookie-storage"> 
               <div class="cookie" ng-repeat="cookie in main.cookies"
                   ng-class="{'is-rarity' : cookie.rarity}" ng-click="main.sellcooking(cookie.rarity, $index)" >             
