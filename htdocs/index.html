@@ -1,67 +1,10 @@
 <!doctype html>
 <html lang="ja" ng-app="jangStudy">
-    <style>
-        .cookie {
-            width: 100px;
-            height: 100px;
-            border-radius: 25px;
-            background: #deb987;
-        }
-        .cookie.is-rarity {
-            background: #d2691e;
-        }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js">
-    </script>
-    <script>
-        angular.module('jangStudy',[])
-        .controller('MainCtrl', function () {
-            var vm = this;
-            var count = 1;
-            vm.cookies = []; 
-            vm.money = 0;
-            vm.cooking_message = '追加!';
-            vm.alert_message = '';
-            vm.create_count = 1;
+    <link rel="stylesheet" type="text/css" href="./css/app.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="./js/app.js"></script>
 
-            vm.cooking = function () {
-                for (var i = 0; i < vm.create_count; i++) {
-                    if (vm.cookies.length < 10) {
-                        if(count %5 == 0){
-                             vm.cookies.push({
-                                 id: count++,
-                                 rarity: true
-                             });
-                        } else {
-                             vm.cookies.push({
-                                id: count++,
-                                rarity: false
-                             });
-                        }
-                    } else {
-                     vm.cooking_message = 'もう追加できませんぬ';
-                    }
-                }
-            };
-            vm.sellcooking = function (is_rarity, object_len) {
-                if(is_rarity) {
-                    vm.money+=500;
-                } else {
-                    vm.money+=100;
-                }
-                vm.cookies.splice(object_len,1);
-            };
-            vm.item_double = function () {
-                if(vm.money < 500) {
-                    vm.alert_message = '金が...ないんだ';      
-                } else {
-                    vm.money -= 500;
-                    vm.create_count++;
-                }
-
-            };
-        });
-   </script>
+   
     <body>
         <div class="cookie-factory" ng-controller="MainCtrl as main">
             <div ng-bind="main.alert_message"></div>

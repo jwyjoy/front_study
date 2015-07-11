@@ -1,0 +1,12 @@
+.cookie {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    background: #deb987;
+}
+.cookie.is-rarity {
+    background: #d2691e;
+}
+.cookie.is-failed {
+    background: #f5deb3;
+}
