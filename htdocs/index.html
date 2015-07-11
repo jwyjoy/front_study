@@ -3,7 +3,6 @@
     <link rel="stylesheet" type="text/css" href="/css/app.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
     <script src="/js/app.js"></script>
-
    
     <body>
         <div class="cookie-factory" ng-controller="MainCtrl as main">
@@ -13,10 +12,10 @@
             <div ng-show="main.cookies.length >= 10">
                 もう追加できないので
             </div>
-            <button ng-click="main.item_double()" ng-disabled="main.create_count > 1"> 500item </button>
+            <button ng-click="main.item_double()" ng-disabled="main.create_count > 2" ng-bind="main.item_name"> </button>
           <div class="cookie-storage"> 
               <div class="cookie" ng-repeat="cookie in main.cookies"
-                  ng-class="{'is-rarity' : cookie.rarity}" ng-click="main.sellcooking(cookie.rarity, $index)" >             
+                  ng-class="cookie.rarity" ng-click="main.sellcooking(cookie.rarity, $index)" >             
             </div>
           </div>
         </div>
