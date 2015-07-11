@@ -1,4 +1,10 @@
-angular.module('jangStudy',['cookiesMaker', 'cookiesStorage', 'money', 'item_list', 'cookiesSaler', 'itemManager'])
+angular.module('jangStudy',[
+        'cookiesMaker',
+        'cookiesStorage',
+        'money',
+        'item_list',
+        'cookiesSaler',
+        'itemManager' ])
 .controller('MainCtrl', function (cookieMaker, cookies, cookie_count, rarity, money, sales, item_name, item_rank, item_price, cookie_saler, item_sell) {
     var vm = this;
 
