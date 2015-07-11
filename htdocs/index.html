@@ -19,7 +19,7 @@
             var vm = this;
             var count = 1;
             vm.cookies = [];
-            //vm.money = 0;
+            vm.money = 0;
             vm.cooking_message = '追加!';
             vm.cooking = function () {
                 if (count <= 10) {
@@ -39,61 +39,29 @@
                 }
                 console.log(vm.cookies);
             };
-            /*vm.sellcooking = function () {
+            vm.sellcooking = function (is_rarity, object_len) {
                 count--;
-                money+=100;
-                vm.cookies.s;
-            };*/
+                if(is_rarity) {
+                    vm.money+=500;
+                } else {
+                    vm.money+=100;
+                }
+                vm.cookies.splice(object_len,1);
+            };
         });
-
-      /*
-      .controller('MainCtrl', function () {
-          this.message = 'hello jang! this is controller!';
-      })
-      .controller('SecondCtrl', function () {
-          var test = 1;
-          this.message = 'default message';
-          this.messages = [];
-          this.push = function (message) {
-              console.log(message);
-              this.messages.push({
-                  id: test++,
-                  text: message
-              });
-          };
-      })
-      .controller('CookieClicker', function () {
-      });
-     */
-    </script>
+   </script>
     <body>
         <div class="cookie-factory" ng-controller="MainCtrl as main">
             <button ng-show="main.cookies.length < 10" ng-click="main.cooking()" ng-bind="main.cooking_message" > </button>
+            <div ng-bind="main.money"></div>
             <div ng-show="main.cookies.length >= 10">
                 もう追加できないので
             </div>
           <div class="cookie-storage"> 
-
               <div class="cookie" ng-repeat="cookie in main.cookies"
-                  ng-class="{'is-rarity' : cookie.rarity}" >             
+                  ng-class="{'is-rarity' : cookie.rarity}" ng-click="main.sellcooking(cookie.rarity, $index)" >             
             </div>
           </div>
         </div>
-        <!--
-        <article class="jang" ng-controller="MainCtrl as main">
-            <p ng-bind="main.message"> </p>
-        </article>
-        <article class="second" ng-controller="SecondCtrl as second">
-            <input type="text" ng-model="second.message"/>
-            <button ng-click="second.push(second.message)">追加</button>
-            <section>
-                <h2>保存されたメッセージ</h2>
-                <ul>
-                    <li ng-repeat="message in second.messages" ng-if="message.id % 2" ng-bind="message.text"></li>
-                </ul>
-                   
-            </section>
-            </article>
-            -->
-    </body>
+   </body>
 </html>
