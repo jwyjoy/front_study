@@ -1,5 +1,5 @@
-angular.module('jangStudy',['cookiesMaker', 'cookiesStorage', 'money', 'item_list', 'cookiesSaler'])
-.controller('MainCtrl', function (cookieMaker, cookies, cookie_count, rarity, money, sales, item_name, item_rank, item_price, cookie_saler) {
+angular.module('jangStudy',['cookiesMaker', 'cookiesStorage', 'money', 'item_list', 'cookiesSaler', 'itemManager'])
+.controller('MainCtrl', function (cookieMaker, cookies, cookie_count, rarity, money, sales, item_name, item_rank, item_price, cookie_saler, item_sell) {
     var vm = this;
 
 
@@ -12,13 +12,8 @@ angular.module('jangStudy',['cookiesMaker', 'cookiesStorage', 'money', 'item_lis
     vm.item_rank = item_rank.value;
 
     vm.cooking = function () {
-        for (var i = 0; i < item_rank.value+1; i++) {
-
-            if (cookies.length < 10) {
-                cookieMaker();
-            } else {
-                vm.cooking_message = 'もう追加できませんぬ';
-            }
+        if(!cookieMaker()) {
+            vm.cooking_message = 'もう追加できませんぬ';   
         }
     };
 
@@ -28,13 +23,11 @@ angular.module('jangStudy',['cookiesMaker', 'cookiesStorage', 'money', 'item_lis
     };
 
     vm.use_item = function () {
-        if(money.value < item_price[item_rank.value]) {
-            vm.alert_message = '金が...ないんだ';      
-        } else {
-            money.value -= item_price[item_rank.value];
-            item_rank.value++;
-            vm.item_name = item_name[item_rank.value];
+       
+        if(!item_sell()) {
+            vm.alert_message = 'おぬし！金を持ってないんじゃ！';
         }
+        vm.item_name = item_name[item_rank.value];
         vm.money = money.value;
         vm.item_rank = item_rank.value;
     };
