@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ja" ng-app="jangStudy">
+    <style>
+        .cookie {
+            width: 100px;
+            height: 100px;
+            border-radius: 25px;
+            background: #deb987;
+        }
+        .cookie.is-rarity {
+            background: #d2691e;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js">
+    </script>
+    <script>
+        angular.module('jangStudy',[])
+        .controller('MainCtrl', function () {
+            var vm = this;
+            var count = 1;
+            vm.cookies = [];
+            //vm.money = 0;
+            vm.cooking_message = '追加!';
+            vm.cooking = function () {
+                if (count <= 10) {
+                     if(count %5 == 0){
+                         vm.cookies.push({
+                            id: count++,
+                            rarity: true
+                         });
+                     } else {
+                        vm.cookies.push({
+                            id: count++,
+                            rarity: false
+                         });
+                     }
+                } else {
+                    vm.cooking_message = 'もう追加できませんぬ';
+                }
+                console.log(vm.cookies);
+            };
+            /*vm.sellcooking = function () {
+                count--;
+                money+=100;
+                vm.cookies.s;
+            };*/
+        });
+
+      /*
+      .controller('MainCtrl', function () {
+          this.message = 'hello jang! this is controller!';
+      })
+      .controller('SecondCtrl', function () {
+          var test = 1;
+          this.message = 'default message';
+          this.messages = [];
+          this.push = function (message) {
+              console.log(message);
+              this.messages.push({
+                  id: test++,
+                  text: message
+              });
+          };
+      })
+      .controller('CookieClicker', function () {
+      });
+     */
+    </script>
+    <body>
+        <div class="cookie-factory" ng-controller="MainCtrl as main">
+            <button ng-show="main.cookies.length < 10" ng-click="main.cooking()" ng-bind="main.cooking_message" > </button>
+            <div ng-show="main.cookies.length >= 10">
+                もう追加できないので
+            </div>
+          <div class="cookie-storage"> 
+
+              <div class="cookie" ng-repeat="cookie in main.cookies"
+                  ng-class="{'is-rarity' : cookie.rarity}" >             
+            </div>
+          </div>
+        </div>
+        <!--
+        <article class="jang" ng-controller="MainCtrl as main">
+            <p ng-bind="main.message"> </p>
+        </article>
+        <article class="second" ng-controller="SecondCtrl as second">
+            <input type="text" ng-model="second.message"/>
+            <button ng-click="second.push(second.message)">追加</button>
+            <section>
+                <h2>保存されたメッセージ</h2>
+                <ul>
+                    <li ng-repeat="message in second.messages" ng-if="message.id % 2" ng-bind="message.text"></li>
+                </ul>
+                   
+            </section>
+            </article>
+            -->
+    </body>
+</html>
