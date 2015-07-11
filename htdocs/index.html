@@ -12,7 +12,7 @@
             <div ng-show="main.cookies.length >= 10">
                 もう追加できないので
             </div>
-            <button ng-click="main.item_double()" ng-disabled="main.create_count > 2" ng-bind="main.item_name"> </button>
+            <button ng-click="main.use_item()" ng-disabled="main.item_rank > 1" ng-bind="main.item_name"> </button>
           <div class="cookie-storage"> 
               <div class="cookie" ng-repeat="cookie in main.cookies"
                   ng-class="cookie.rarity" ng-click="main.sellcooking(cookie.rarity, $index)" >             
